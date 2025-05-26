@@ -149,12 +149,6 @@ The backend services can be integrated with various frontend technologies:
   - Excellent TypeScript support
   - Modern data fetching with React Query/SWR
 
-- **Vue.js / Nuxt.js**
-  - Progressive framework approach
-  - Easy learning curve
-  - Strong TypeScript support
-  - Built-in state management
-
 ### 2. Mobile Applications
 - **React Native**
   - Cross-platform mobile development
