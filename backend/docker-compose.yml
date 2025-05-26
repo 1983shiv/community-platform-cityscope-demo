@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  auth-service:
+    build: 
+      context: ./auth-service
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/auth-service
+      - JWT_SECRET=your-secret-key
+      - PORT=3001
+    depends_on:
+      - mongodb
+
+  post-service:
+    build:
+      context: ./post-service
+      dockerfile: Dockerfile
+    ports:
+      - "3002:3002"
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/post-service
+      - AUTH_SERVICE_URL=http://auth-service:3001
+      - PORT=3002
+    depends_on:
+      - mongodb
+      - auth-service
+
+  reaction-service:
+    build:
+      context: ./reaction-service
+      dockerfile: Dockerfile
+    ports:
+      - "3003:3003"
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/reaction-service
+      - AUTH_SERVICE_URL=http://auth-service:3001
+      - PORT=3003
+    depends_on:
+      - mongodb
+      - auth-service
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - community-platform-data:/data/db
+
+volumes:
+  community-platform-data:
